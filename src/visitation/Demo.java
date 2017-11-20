@@ -21,6 +21,7 @@ public class Demo {
         
         bt.acceptVisitor (new BinaryTreeNodePrinter());
         bt.acceptVisitor (new BinaryTreeLeafLabeler());
+        bt.acceptVisitor (new BinaryTreeLeafLabeler());
         bt.acceptVisitor (new BinaryTreeNodePrinter());
     }
 }
