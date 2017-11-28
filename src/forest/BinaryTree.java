@@ -1,5 +1,6 @@
 package forest;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -9,7 +10,7 @@ import java.util.Stack;
  * @author smithk
  * @param <T> must implement Comparable
  */
-public class BinaryTree<T> implements Iterable<T> {
+public class BinaryTree<T> implements Iterable<T>, Serializable, Visitable  {
     protected T fruit;
     public T getFruit() {
         return fruit;
@@ -42,12 +43,20 @@ public class BinaryTree<T> implements Iterable<T> {
     
     public String toString() {
         String generations = "";
+        for (T fruit : this)
+            generations += fruit.toString() + " ";
+        /*
         if (leftBranch != null)
             generations = leftBranch.toString();
         if (rightBranch != null)
             generations += rightBranch.toString();
         generations += fruit.toString() + " ";
+        */
         return generations;
+    }
+    
+    public void acceptVisitor (Visitor guest) {
+        guest.visit (this);
     }
     
     /**
@@ -161,7 +170,7 @@ public class BinaryTree<T> implements Iterable<T> {
     
     @Override
     public Iterator<T> iterator() {
-        return new DfIterator ();
+        return new BfIterator ();
     }
 
     private void insert (BinaryTree<T> node) {
